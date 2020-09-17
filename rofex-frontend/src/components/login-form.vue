@@ -19,11 +19,13 @@
       </div>
       <div>
         <label for="password">
+          <!--
+            :type="showPass ? 'text' : 'password'"
+           -->
           <v-text-field
             label="Contraseña"
             name="password"
             required
-            :type="showPass ? 'text' : 'password'"
             v-on:click="clearError"
             id="password"
             v-model="password"
@@ -52,16 +54,18 @@
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "Login",
   data() {
     return {
       username: "",
       password: "",
       errorMessage: [],
+      users: [],
     };
   },
+  mounted: {},
+  computed: {},
   methods: {
     validateForm() {
       console.log(history);
@@ -94,7 +98,7 @@ export default Vue.extend({
       this.$router.push("/dashboard");
     },
   },
-});
+};
 </script>
 
 <style>
