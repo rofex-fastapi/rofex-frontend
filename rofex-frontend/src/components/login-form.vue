@@ -31,7 +31,7 @@
           />
         </label>
       </div>
-      <div><button type="submit" class="myButton" >Ingresar</button></div>
+      <div><button type="submit" class="myButton">Ingresar</button></div>
       <div v-if="errorMessage" class="errormessage">
         <div v-for="error in errorMessage" v-bind:key="error.index">
           {{ error }}
@@ -42,7 +42,7 @@
         <hr />
         <br />
         <span>
-          No tienes una cuenta?<router-link to="/register">
+          No tienes una cuenta?<router-link to="/registration">
             Registrarte</router-link
           ></span
         >
@@ -59,7 +59,7 @@ export default Vue.extend({
     return {
       username: "",
       password: "",
-      errorMessage: []
+      errorMessage: [],
     };
   },
   methods: {
@@ -84,7 +84,7 @@ export default Vue.extend({
     submitForm() {
       const data = {
         email: this.username,
-        password: this.password
+        password: this.password,
       };
       console.log(data);
       localStorage.setItem("userinfo", JSON.stringify(data)); //in the absence of a real api for user auth this would handle auth
@@ -92,8 +92,8 @@ export default Vue.extend({
       //make network request
       //axios post
       this.$router.push("/dashboard");
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -118,28 +118,28 @@ export default Vue.extend({
 }
 .myButton {
   cursor: pointer;
-	box-shadow: 0px 1px 0px 0px #97c4fe;
-	background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
-	background-color:#3d94f6;
-	border-radius:5px;
-	border:1px solid #337fed;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #1570cd;
+  box-shadow: 0px 1px 0px 0px #97c4fe;
+  background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+  background-color: #3d94f6;
+  border-radius: 5px;
+  border: 1px solid #337fed;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #1570cd;
   width: 99%;
   height: 40px;
   position: relative;
   top: 1rem;
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #1e62d0 100%, #3d94f6 100%);
-	background-color:#1e62d0;
+  background: linear-gradient(to bottom, #1e62d0 100%, #3d94f6 100%);
+  background-color: #1e62d0;
 }
 .errormessage {
   color: red;

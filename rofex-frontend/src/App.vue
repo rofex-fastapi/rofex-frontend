@@ -1,18 +1,14 @@
 <template>
-  <v-app>
-    <v-main>
-      <login />
-    </v-main>
-  </v-app>
+  <div>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import login from "./components/login-form.vue";
-
 export default {
   name: "App",
 
-  components: { login },
+  components: {},
 
   data: () => ({
     //
