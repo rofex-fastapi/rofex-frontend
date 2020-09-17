@@ -1,16 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Login from "../views/login.vue";
-import Registration from "../views/registration.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Login",
-    component: Login,
+    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -18,11 +15,17 @@ const routes = [
   {
     path: "/registration",
     name: "Registration",
-    component: Registration,
+    component: () => import(/* webpackChunkName: "login" */ '../views/registration.vue'),
     meta: {
       requiresAuth: false,
-    },
-  },
+    },    
+  },{
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import(/* webpackChunkName: "login" */ '../components/Dashboard/dashboard.vue'),
+    meta: {
+      requiresAuth: false,
+    },}
 ];
 
 const router = new VueRouter({
