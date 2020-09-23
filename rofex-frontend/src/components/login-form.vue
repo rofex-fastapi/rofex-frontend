@@ -48,12 +48,15 @@
             Registrarte</router-link
           ></span
         >
+        {{ users.data[1].email }}
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import Api from "@/services/api";
+
 export default {
   name: "Login",
   data() {
@@ -64,9 +67,19 @@ export default {
       users: [],
     };
   },
-  mounted: {},
+  mounted() {
+    Api()
+      .get("/users")
+      .then((users) => {
+        this.users = users;
+      });
+  },
   computed: {},
   methods: {
+    loginUser(user) {
+      this.$store.dispatch("loginUser", user);
+    },
+
     validateForm() {
       console.log(history);
       if (this.username == "") {
@@ -95,7 +108,7 @@ export default {
       alert("Form Submitted");
       //make network request
       //axios post
-      this.$router.push("/dashboard");
+      //this.$router.push("/dashboard");
     },
   },
 };

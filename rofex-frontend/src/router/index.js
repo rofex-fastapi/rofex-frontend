@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Login from "../views/login.vue";
 import Registration from "../views/registration.vue";
+import Dashboard from "../views/dashboard.vue";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,14 @@ const routes = [
     path: "/registration",
     name: "Registration",
     component: Registration,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
     meta: {
       requiresAuth: false,
     },
