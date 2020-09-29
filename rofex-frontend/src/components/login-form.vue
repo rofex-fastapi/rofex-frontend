@@ -20,9 +20,10 @@
       <div>
         <label for="password">
           <!--
-            :type="showPass ? 'text' : 'password'"
            -->
           <v-text-field
+          
+            type= 'password'
             label="Contraseña"
             name="password"
             required
