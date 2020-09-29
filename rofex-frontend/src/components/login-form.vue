@@ -1,7 +1,7 @@
 <template>
   <div class="loginwrapper">
     <form
-      v-on:submit.prevent="errorMessage.length == 0 ? validateForm() : ''"
+      v-on:submit.prevent="login"
       class="formwrapper"
     >
       <h1 class="text-center">Iniciar Sesion</h1>
@@ -46,16 +46,13 @@
         <span>
           No tienes una cuenta?<router-link to="/registration">
             Registrarte</router-link
-          ></span
-        >
-        {{ users.data[1].email }}
+          ></span>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import Api from "@/services/api";
 
 export default {
   name: "Login",
@@ -67,49 +64,21 @@ export default {
       users: [],
     };
   },
-  mounted() {
-    Api()
-      .get("/users")
-      .then((users) => {
-        this.users = users;
-      });
-  },
   computed: {},
   methods: {
-    loginUser(user) {
-      this.$store.dispatch("loginUser", user);
-    },
-
-    validateForm() {
-      console.log(history);
-      if (this.username == "") {
-        this.errorMessage.push(" Username is required");
-      }
-      if (this.password == "") {
-        this.errorMessage.push(" Password is required");
-        return;
-      }
-      if (this.username !== "" && this.password !== "") {
-        this.submitForm();
-      }
-      console.log(this.errorMessage);
-    },
     clearError() {
       console.log("form fields cleared");
       this.errorMessage = [];
     },
-    submitForm() {
-      const data = {
-        email: this.username,
+    login() {
+      this.$store.dispatch('retrieveToken', {
+        username: this.username,
         password: this.password,
-      };
-      console.log(data);
-      localStorage.setItem("userinfo", JSON.stringify(data)); //in the absence of a real api for user auth this would handle auth
-      alert("Form Submitted");
-      //make network request
-      //axios post
-      //this.$router.push("/dashboard");
-    },
+      })
+        .then(response=>{this.$router.push({ name: 'Dashboard' });        
+        return response
+        })
+    }
   },
 };
 </script>

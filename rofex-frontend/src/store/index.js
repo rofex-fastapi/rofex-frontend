@@ -4,8 +4,9 @@ import Api from "@/services/api";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export const store= new Vuex.Store({
   state: {
+    token:localStorage.getItem('access_token')|| null,
     currentUser: {},
   },
   mutations: {
@@ -15,14 +16,40 @@ export default new Vuex.Store({
     LOGOUT_USER(state) {
       state.currentUser = {};
     },
+    retriveToken(state,token){
+      state.token=token
+    }
   },
   actions: {
-    logoutUser({ commit }) {
-      commmit("LOGOUT_USER");
+    retrieveToken(context, credentials) {
+
+      return new Promise((resolve, reject) => {
+        Api()
+        .post('/token', {
+          username: credentials.username,
+          password: credentials.password,
+        })
+          .then(response => {
+            const token = response.data.access_token
+
+            localStorage.setItem('access_token', token)
+            context.commit('retrieveToken', token)
+            resolve(response)
+            // console.log(response);
+            // context.commit('addTodo', response.data)
+          })
+          .catch(error => {
+            console.log(error)
+            reject(error)
+          })
+        })
     },
-    loginUser({ commit }, user) {
-      commit("SET_CURRENT_USER", user);
-    },
+    //logoutUser({ commit }) {
+      //commmit("LOGOUT_USER");
+    //},
+    //loginUser({ commit }, user) {
+      //commit("SET_CURRENT_USER", user);
+    //},
   },
   modules: {},
 });
