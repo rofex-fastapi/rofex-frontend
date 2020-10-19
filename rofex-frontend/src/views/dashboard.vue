@@ -6,7 +6,7 @@
 import dashboard from "../components/Dashboard/dashboard";
 
 export default {
-  name: "dashboard",
+  name: "board",
   components: {
     dashboard,
   },

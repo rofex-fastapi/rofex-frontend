@@ -23,7 +23,7 @@
       <Sidebar v-bind:user="user" />
       <section id="contents">
         <DashboardNav />
-        <div class="welcome">
+        <!-- <div class="welcome">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
@@ -34,8 +34,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <Tables />
+        <!-- podriamos agregar los ultimos trades hechos en la parte de tables-->
+        <Charts />
         <Charts />
         <Charts />
       </section>
