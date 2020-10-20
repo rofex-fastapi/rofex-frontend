@@ -11,12 +11,11 @@
         </div>
       </div>
       <div class="userinputwrapper">
-        <label for="username">
+        <label for="surname">
           <v-text-field
-            label="Usuario"
-            name="username"
+            label="Apellido"
+            name="surname"
             v-on:click="clearError"
-            v-model="username"
             value=""
             required
           />
@@ -28,7 +27,6 @@
             label="Nombre"
             name="name"
             v-on:click="clearError"
-            v-model="name"
             value=""
             required
           />
@@ -40,7 +38,6 @@
             label="Correo Electronico"
             name="email"
             v-on:click="clearError"
-            v-model="email"
             value=""
             required
           />
@@ -53,10 +50,9 @@
             label="Contraseña"
             name="password"
             required
-            :type="showPass ? 'text' : 'password'"
+            :type="'password'"
             v-on:click="clearError"
             id="password"
-            v-model="password"
             value=""
           />
         </label>
@@ -67,10 +63,9 @@
             label="Repita la Contraseña"
             name="password2"
             required
-            :type="showPass ? 'text' : 'password'"
+            :type="'password'"
             v-on:click="clearError"
             id="password2"
-            v-model="password"
             value=""
           />
         </label>

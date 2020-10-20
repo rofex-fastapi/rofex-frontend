@@ -23,11 +23,11 @@ export const store = new Vuex.Store({
   actions: {
     retrieveToken(context, credentials) {
       return new Promise((resolve, reject) => {
+        let fd = new FormData();
+        fd.append('username', credentials.username);
+        fd.append('password', credentials.password);
         Api()
-          .post("/token", {
-            username: credentials.username,
-            password: credentials.password,
-          })
+          .post("/token", fd)
           .then((response) => {
             const token = response.data.access_token;
 
@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
             // context.commit('addTodo', response.data)
           })
           .catch((error) => {
-            console.log(error);
+            console.log(error.response);
             reject(error);
           });
       });
