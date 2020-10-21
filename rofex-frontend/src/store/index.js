@@ -43,6 +43,31 @@ export const store = new Vuex.Store({
           });
       });
     },
+    register(context, data) {
+      return new Promise((resolve, reject) => {
+        /*let dat = new FormData();
+        dat.append('email', data.email);
+        dat.append('name', data.name);
+        dat.append('lastname', data.lastname);
+        dat.append('hashed_password', data.password);
+        //localStorage.setItem("userinfo", JSON.stringify(dat));*/
+        let dat={
+          'email':data.email,
+          'name':data.name,
+          'lastname':data.lastname,
+          'hashed_password':data.password,
+        }
+        Api()
+        .post('/users/', dat)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {            
+            console.log(error.response);
+            reject(error)
+          })
+      })
+    },
     //logoutUser({ commit }) {
     //commmit("LOGOUT_USER");
     //},

@@ -35,11 +35,7 @@
         </label>
       </div>
       <div><button type="submit" class="myButton">Ingresar</button></div>
-      <div v-if="errorMessage" class="errormessage">
-        <div v-for="error in errorMessage" v-bind:key="error.index">
-          {{ error }}
-        </div>
-      </div>
+     
       <br />
       <div class="signup">
         <hr />
@@ -57,6 +53,7 @@
 
 export default {
   name: "Login",
+  
   data() {
     return {
       username: "",
@@ -64,6 +61,9 @@ export default {
       errorMessage: [],
       users: [],
     };
+  },
+  beforeCreate() {
+    //check if the user is loggedIn if false redirect to login page
   },
   computed: {},
   methods: {

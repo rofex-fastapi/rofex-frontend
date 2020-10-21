@@ -1,82 +1,47 @@
 <template>
   <div class="loginwrapper">
     <form
-      v-on:submit.prevent="errorMessage.length == 0 ? validateForm() : ''"
+      v-on:submit.prevent ="errorMessage.length==0? validateForm():''"
       class="formwrapper"
     >
       <h1 class="text-center titlesignup">Crear Cuenta</h1>
-      <div v-if="errorMessage" class="errormessage">
-        <div v-for="error in errorMessage" v-bind:key="error.index">
-          {{ error }}
-        </div>
-      </div>
       <div class="userinputwrapper">
         <label for="surname">
-          <v-text-field
-            label="Apellido"
-            name="surname"
-            v-on:click="clearError"
-            value=""
-            required
-          />
+          <v-text-field label="Apellido" name="surname"   v-model="surname" required />
         </label>
       </div>
       <div class="userinputwrapper">
         <label for="name">
-          <v-text-field
-            label="Nombre"
-            name="name"
-            v-on:click="clearError"
-            value=""
-            required
-          />
+          <v-text-field label="Nombre" name="name" v-on:click="clearError" v-model="name" required  />
         </label>
       </div>
       <div class="userinputwrapper">
         <label for="email">
-          <v-text-field
-            label="Correo Electronico"
-            name="email"
-            v-on:click="clearError"
-            value=""
-            required
-          />
-        </label>
-        
+          <v-text-field label="Correo Electronico" name="email" v-on:click="clearError" v-model="email" required  />
+        </label>        
       </div>
       <div>
         <label for="password">
-          <v-text-field
-            label="Contraseña"
-            name="password"
-            required
-            :type="'password'"
-            v-on:click="clearError"
-            id="password"
-            value=""
-          />
+          <v-text-field label="Contraseña" name="password"  :type="'password'" v-on:click="clearError" v-model="password" required/>
         </label>
       </div>
       <div>
-        <label for="password2">
-          <v-text-field
-            label="Repita la Contraseña"
-            name="password2"
-            required
-            :type="'password'"
-            v-on:click="clearError"
-            id="password2"
-            value=""
-          />
+        <label for="repitePass">
+          <v-text-field label="Repita la Contraseña" name="repitePass"  :type="'password'" v-on:click="clearError" v-model="repitePass"  required/>
         </label>
       </div>
-      <div><button type="submit" class="myButton" >Aceptar</button></div><br>
+      <div><button type="submit" class="myButton" >Aceptar</button></div>
+       <div v-if="errorMessage" class="errormessage">
+                   <div v-for="error in errorMessage" v-bind:key="error.index"><br>
+                    {{error}}
+                   </div>
+                </div>
       <div class="signup">
         <hr />
         <br />
         <span>
-          Ya tienes cuenta? <router-link to="/">Iniciar Sesión</router-link></span
-        >
+          Ya tienes cuenta? <router-link to="/">Iniciar Sesión</router-link></span>
+         
       </div>
     </form>
   </div>
@@ -87,51 +52,40 @@ export default Vue.extend({
   name: "SignUp",
   data() {
     return {
-      firstname: "",
-      lastname: "",
+      name: "",
+      surname: "",
       email: "",
       password: "",
-      errorMessage: []
+      repitePass:"",
+      errorMessage:[],
     };
   },
   methods: {
-    validateForm() {
-      console.log(history);
-      if (this.firstname == "") {
-        this.errorMessage.push("firstname is required");
-      }
-      if (this.password == "") {
-        this.errorMessage.push(" Password is required");
-      }
-      if (this.lastname == "") {
-        this.errorMessage.push("lastname is required");
-      }
-      if (this.email == "") {
-        this.errorMessage.push("email is required");
-        return;
-      }
-      if (this.firstname !== "" && this.password !== "") {
-        this.submitForm();
-      }
-      console.log(this.errorMessage);
-    },
+     validateForm(){
+            console.log(history)
+            if(this.repitePass == this.password ){
+                this.submitForm()
+            }else{              
+              this.errorMessage.push('Las Contraseñas no Coinciden')
+              return
+            }
+            console.log(this.errorMessage)
+        },
     clearError() {
       console.log("form fields cleared");
       this.errorMessage = [];
     },
     submitForm() {
-      const data = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.username,
-        password: this.password
-      };
-      console.log(data);
-      localStorage.setItem("userinfo", JSON.stringify(data)); //in the absence of a real api for user auth this would handle auth
-      alert("Form Submitted");
-      //make network request
-      //axios post
-      this.$router.push("/dashboard");
+        this.$store.dispatch('register', {
+          email: this.email,
+          name: this.name,
+          lastname: this.surname,
+          password: this.password
+          })
+          .then(response=>{
+            this.$router.push({ name: 'Login' });        
+            return response
+            })      
     }
   }
 });
