@@ -45,12 +45,7 @@ export const store = new Vuex.Store({
     },
     register(context, data) {
       return new Promise((resolve, reject) => {
-        /*let dat = new FormData();
-        dat.append('email', data.email);
-        dat.append('name', data.name);
-        dat.append('lastname', data.lastname);
-        dat.append('hashed_password', data.password);
-        //localStorage.setItem("userinfo", JSON.stringify(dat));*/
+        
         let dat={
           'email':data.email,
           'name':data.name,
@@ -74,6 +69,28 @@ export const store = new Vuex.Store({
     //loginUser({ commit }, user) {
     //commit("SET_CURRENT_USER", user);
     //},
+    createTrades(context, data) {
+      return new Promise((resolve, reject) => {
+        
+        let dat={
+          "symbol": data.Symbol,
+          "size": data.Size,
+          "price": data.Price,
+          "datetime": data.Datetime
+          //iduser
+        }
+        Api()
+        .post('/create-trade/', dat)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {            
+            console.log(error.response);
+            reject(error)
+          })
+      })
+    },
+
   },
   modules: {},
 });

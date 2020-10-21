@@ -4,10 +4,19 @@ import VueRouter from "vue-router";
 import Login from "../views/login.vue";
 import Registration from "../views/registration.vue";
 import Dashboard from "../views/dashboard.vue";
+import Trades from "../components/trades.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/trades",
+    name: "trades",
+    component: Trades,
+    meta: {
+      requiresAuth: false,
+    },
+  },
   {
     path: "/",
     name: "Login",
