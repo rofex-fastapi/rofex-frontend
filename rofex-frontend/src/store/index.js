@@ -115,6 +115,32 @@ export const store = new Vuex.Store({
           });
       });
     },
+    //logoutUser({ commit }) {
+    //commmit("LOGOUT_USER");
+    //},
+    //loginUser({ commit }, user) {
+    //commit("SET_CURRENT_USER", user);
+    //},
+    createTrades(context, data) {
+      return new Promise((resolve, reject) => {
+        let dat = {
+          symbol: data.Symbol,
+          size: data.Size,
+          price: data.Price,
+          datetime: data.Datetime,
+          //iduser
+        };
+        Api()
+          .post("/create-trade/", dat)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.response);
+            reject(error);
+          });
+      });
+    },
   },
   modules: {},
 });
