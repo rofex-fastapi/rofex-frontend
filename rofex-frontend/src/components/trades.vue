@@ -22,7 +22,7 @@
     <body>
       <Sidebar v-bind:user="user" />
       <section id="contents">
-        <DashboardNav />       
+        <DashboardNav />
         <Trade />
       </section>
     </body>
@@ -41,22 +41,13 @@ export default Vue.extend({
   components: {
     DashboardNav,
     Sidebar,
-    Trade
+    Trade,
   },
   data() {
     return {
       user: "",
       isloggedIn: false,
     };
-  },
-  beforeCreate() {
-    //check if the user is loggedIn if false redirect to login page
-  },
-  beforeMount() {
-    const userinfoHome = localStorage.getItem("userinfoHome");
-    const parsedUser = JSON.parse(userinfoHome);
-    console.log(parsedUser);
-    return (this.user = parsedUser.email);
   },
 });
 </script>

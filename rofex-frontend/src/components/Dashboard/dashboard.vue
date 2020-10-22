@@ -66,13 +66,6 @@ export default Vue.extend({
       user: "",
     };
   },
-  beforeCreate() {},
-  beforeMount() {
-    // const userinfoHome = localStorage.getItem("userinfoHome");
-    // const parsedUser = JSON.parse(userinfoHome);
-    // console.log(parsedUser);
-    // return (this.user = parsedUser.email);
-  },
 });
 </script>
 
