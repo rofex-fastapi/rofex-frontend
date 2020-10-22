@@ -8,7 +8,9 @@
     <div class="heading">
       <img src="img/img-persona.png" alt="" />
       <div class="infoHome">
-        <p>{{ currentUser.lastname + ", " + currentUser.name }}</p>
+        <p v-if="isLoggedIn">
+          {{ currentUser.lastname + ", " + currentUser.name }}
+        </p>
       </div>
     </div>
     <!--<div class="search">
@@ -28,20 +30,26 @@
         ><v-btn @click="logout"> Cerrar sesion</v-btn>
       </li>
     </ul>
+    <!-- <div v-for="trade in trades" :key="trade.id" color="white">
+      {{ trade.id }}
+    </div> -->
   </aside>
 </template>
 
 <script>
 import Vue from "vue";
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default Vue.extend({
   name: "Sidebar",
   props: {},
   computed: {
-    ...mapState(["currentUser"]),
+    ...mapState(["currentUser"], ["trades"]),
+    ...mapGetters(["isLoggedIn"]),
   },
   mounted() {
-    this.$store.dispatch("getMe");
+    this.$store.dispatch("getMe").then(() => {
+      this.$store.dispatch("getTrades");
+    });
   },
   methods: {
     logout() {

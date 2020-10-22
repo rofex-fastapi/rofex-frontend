@@ -67,8 +67,11 @@ export default Vue.extend({
     };
   },
   mounted() {
-    this.$store.dispatch("getTrades");
+    this.$store.dispatch("getMe").then(() => {
+      this.$store.dispatch("getTrades");
+    });
   },
+  created() {},
 });
 </script>
 

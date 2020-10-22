@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem("access_token") || null,
     currentUser: null,
-    trades: [],
+    trades: null,
   },
   getters: {
     isLoggedIn(state) {
@@ -44,14 +44,11 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    async getTrades({ state }) {
+    async getTrades({ state, commit }) {
       if (state.currentUser !== null) {
         await this.getMe;
       }
       try {
-        //formData no
-        //state.currentUser.id no
-        //{ iduser: state.currentUser.id } no
         const limit = 100;
         axios.defaults.headers.common[
           "Authorization"
@@ -60,7 +57,9 @@ export const store = new Vuex.Store({
         const data = await Api().post(
           `/trades/?user_id=${state.currentUser.id}&limit=${limit}`
         );
-        console.log(data);
+        if (data !== null) {
+          commit("SET_TRADES", data.data);
+        }
         return data;
       } catch (error) {
         return {
@@ -156,16 +155,29 @@ export const store = new Vuex.Store({
     //},
     createTrades(context, data) {
       return new Promise((resolve, reject) => {
-        let dat = {
-          symbol: data.Symbol,
-          size: data.Size,
-          price: data.Price,
-          datetime: data.Datetime,
-          //iduser
-        };
+        // let dat = {
+        //   symbol: data.Symbol,
+        //   size: data.Size,
+        //   price: data.Price,
+        //   datetime: data.Datetime,
+        //   iduser: this.state.currentUser.id,
+        // };
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${this.state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
         Api()
-          .post("/create-trade/", dat)
+          .post("/create-trade/", {
+            params: {
+              symbol: data.Symbol,
+              size: data.Size,
+              price: data.Price,
+              datetime: data.Datetime,
+              iduser: this.state.currentUser.id,
+            },
+          })
           .then((response) => {
+            console.log(response);
             resolve(response);
           })
           .catch((error) => {
