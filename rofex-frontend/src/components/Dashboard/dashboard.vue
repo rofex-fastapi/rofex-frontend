@@ -64,17 +64,14 @@ export default Vue.extend({
   data() {
     return {
       user: "",
-      isloggedIn: false,
     };
   },
-  beforeCreate() {
-    //check if the user is loggedIn if false redirect to login page
-  },
+  beforeCreate() {},
   beforeMount() {
-    const userinfoHome = localStorage.getItem("userinfoHome");
-    const parsedUser = JSON.parse(userinfoHome);
-    console.log(parsedUser);
-    return (this.user = parsedUser.email);
+    // const userinfoHome = localStorage.getItem("userinfoHome");
+    // const parsedUser = JSON.parse(userinfoHome);
+    // console.log(parsedUser);
+    // return (this.user = parsedUser.email);
   },
 });
 </script>

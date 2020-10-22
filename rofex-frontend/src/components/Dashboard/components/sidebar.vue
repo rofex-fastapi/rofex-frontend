@@ -7,9 +7,7 @@
     <div class="heading">
       <img src="img/img-persona.png" alt="" />
       <div class="infoHome">
-        <p>Nombre</p>
-        <h3 v-if="user" class="user">{{ user }}</h3>
-        <p>Datos</p>
+        <p>{{ currentUser.lastname + ", " + currentUser.name }}</p>
       </div>
     </div>
     <!--<div class="search">
@@ -38,17 +36,31 @@
       </li>
       <li>
         <i class="fa fa-sign-out" style="color:white"></i
-        ><a href="#"> Cerrar sesion</a>
+        ><v-btn @click="logout"> Cerrar sesion</v-btn>
       </li>
     </ul>
   </aside>
 </template>
+
 <script>
 import Vue from "vue";
+import { mapState } from "vuex";
 export default Vue.extend({
   name: "Sidebar",
-  props: {
-    user: String,
+  props: {},
+  computed: {
+    ...mapState(["currentUser"]),
+  },
+  mounted() {
+    this.$store.dispatch("getMe");
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("destroyToken").then((response) => {
+        this.$router.push({ name: "Login" });
+        return response;
+      });
+    },
   },
 });
 </script>

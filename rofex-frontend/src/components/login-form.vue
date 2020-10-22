@@ -1,9 +1,6 @@
 <template>
   <div class="loginwrapper">
-    <form
-      v-on:submit.prevent="login"
-      class="formwrapper"
-    >
+    <form v-on:submit.prevent="login" class="formwrapper">
       <h1 class="text-center">Iniciar Sesion</h1>
       <div class="userinputwrapper">
         <label for="username">
@@ -22,8 +19,7 @@
           <!--
            -->
           <v-text-field
-          
-            type= 'password'
+            type="password"
             label="Contraseña"
             name="password"
             required
@@ -35,7 +31,7 @@
         </label>
       </div>
       <div><button type="submit" class="myButton">Ingresar</button></div>
-     
+
       <br />
       <div class="signup">
         <hr />
@@ -43,17 +39,17 @@
         <span>
           No tienes una cuenta?<router-link to="/registration">
             Registrarte</router-link
-          ></span>
+          ></span
+        >
       </div>
     </form>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Login",
-  
+
   data() {
     return {
       username: "",
@@ -68,18 +64,19 @@ export default {
   computed: {},
   methods: {
     clearError() {
-      console.log("form fields cleared");
       this.errorMessage = [];
     },
     login() {
-      this.$store.dispatch('retrieveToken', {
-        username: this.username,
-        password: this.password,
-      })
-        .then(response=>{this.$router.push({ name: 'Dashboard' });        
-        return response
+      this.$store
+        .dispatch("returnToken", {
+          username: this.username,
+          password: this.password,
         })
-    }
+        .then((response) => {
+          this.$router.push({ name: "Dashboard" });
+          return response;
+        });
+    },
   },
 };
 </script>

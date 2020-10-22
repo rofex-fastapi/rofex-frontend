@@ -4,10 +4,25 @@ import Api from "@/services/api";
 
 Vue.use(Vuex);
 
+function authHeaders(token) {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+}
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem("access_token") || null,
     currentUser: {},
+  },
+  getters: {
+    isLoggedIn(state) {
+      return state.token !== null;
+    },
+    getUser(state) {
+      return state.user;
+    },
   },
   mutations: {
     SET_CURRENT_USER(state, user) {
@@ -16,26 +31,54 @@ export const store = new Vuex.Store({
     LOGOUT_USER(state) {
       state.currentUser = {};
     },
-    retriveToken(state, token) {
+    RETURN_TOKEN(state, token) {
       state.token = token;
+    },
+    DESTROY_TOKEN(state) {
+      state.token = null;
     },
   },
   actions: {
-    retrieveToken(context, credentials) {
+    //GET USER ONCE LOGGED IN
+    async getMe({ commit, state }) {
+      try {
+        if (!state.token) {
+          return {
+            user: null,
+            error: null,
+          };
+        }
+        const { data } = await Api().get("/users/me", authHeaders(state.token));
+        console.log(data);
+        const user = data;
+        if (user.id) {
+          commit("SET_CURRENT_USER", user);
+        } else {
+          if (state.token) {
+            commit("LOGOUT_USER");
+          }
+        }
+        return data;
+      } catch (error) {
+        commit("LOGOUT_USER");
+        return {
+          error: "Error al buscar el usuario",
+        };
+      }
+    },
+    //REGISTER NEW USER
+    register(context, data) {
       return new Promise((resolve, reject) => {
-        let fd = new FormData();
-        fd.append('username', credentials.username);
-        fd.append('password', credentials.password);
+        let user_data = {
+          email: data.email,
+          name: data.name,
+          lastname: data.lastname,
+          hashed_password: data.password,
+        };
         Api()
-          .post("/token", fd)
+          .post("/users/", user_data)
           .then((response) => {
-            const token = response.data.access_token;
-
-            localStorage.setItem("access_token", token);
-            context.commit("retrieveToken", token);
             resolve(response);
-            // console.log(response);
-            // context.commit('addTodo', response.data)
           })
           .catch((error) => {
             console.log(error.response);
@@ -43,37 +86,35 @@ export const store = new Vuex.Store({
           });
       });
     },
-    register(context, data) {
-      return new Promise((resolve, reject) => {
-        /*let dat = new FormData();
-        dat.append('email', data.email);
-        dat.append('name', data.name);
-        dat.append('lastname', data.lastname);
-        dat.append('hashed_password', data.password);
-        //localStorage.setItem("userinfo", JSON.stringify(dat));*/
-        let dat={
-          'email':data.email,
-          'name':data.name,
-          'lastname':data.lastname,
-          'hashed_password':data.password,
-        }
-        Api()
-        .post('/users/', dat)
-          .then(response => {
-            resolve(response)
-          })
-          .catch(error => {            
-            console.log(error.response);
-            reject(error)
-          })
-      })
+    //TOKENS
+    destroyToken(context) {
+      if (context.getters.isLoggedIn) {
+        localStorage.removeItem("access_token");
+        context.commit("DESTROY_TOKEN");
+      }
     },
-    //logoutUser({ commit }) {
-    //commmit("LOGOUT_USER");
-    //},
-    //loginUser({ commit }, user) {
-    //commit("SET_CURRENT_USER", user);
-    //},
+    //LOGIN AND RETURN TOKEN
+    returnToken(context, credentials) {
+      return new Promise((resolve, reject) => {
+        let fd = new FormData();
+        fd.append("username", credentials.username);
+        fd.append("password", credentials.password);
+        Api()
+          .post("/token", fd)
+          .then((response) => {
+            const token = response.data.access_token;
+            console.log(response);
+
+            localStorage.setItem("access_token", token);
+            context.commit("RETURN_TOKEN", token);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.response);
+            reject(error);
+          });
+      });
+    },
   },
   modules: {},
 });
