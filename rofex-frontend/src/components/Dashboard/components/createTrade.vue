@@ -17,6 +17,7 @@
                     id="Symbol"
                     class="inputData"
                     v-model="Symbol"
+                    required
                   >
                     <option value="DONov20">DONov20</option>
                     <option value="DODic20">DODic20</option>
@@ -32,11 +33,13 @@
                   <p>Size</p>
                   <input
                     type="number"
+                    min="0"
                     v-on:click="clearError"
                     v-model="Size"
                     id="Size"
                     class="inputData"
                     value=""
+                    required
                   />
                 </label>
               </div>
@@ -45,11 +48,13 @@
                   <p>Price</p>
                   <input
                     type="number"
+                    min="0"
                     v-on:click="clearError"
                     v-model="Price"
                     id="Price"
                     class="inputData"
                     value=""
+                    required
                   />
                 </label>
               </div>
@@ -58,11 +63,13 @@
                   <p>Datetime</p>
                   <input
                     type="datetime-local"
+                    max="2020-10-22T23:59"
                     v-on:click="clearError"
                     id="Datetime"
                     v-model="Datetime"
                     class="inputData"
                     value=""
+                    required
                   />
                 </label>
               </div>
@@ -85,7 +92,8 @@
 <script>
 import Vue from "vue";
 export default Vue.extend({
-  name: "CreateTrade",
+  name: "CreateTrade", 
+  
   data() {
     return {
       Symbol: "",

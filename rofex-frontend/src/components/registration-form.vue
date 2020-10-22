@@ -17,7 +17,7 @@
       </div>
       <div class="userinputwrapper">
         <label for="email">
-          <v-text-field label="Correo Electronico" name="email" v-on:click="clearError" v-model="email" required  />
+          <v-text-field :type="'email'" label="Correo Electronico" name="email" v-on:click="clearError" v-model="email" required  />
         </label>        
       </div>
       <div>
@@ -30,7 +30,7 @@
           <v-text-field label="Repita la Contraseña" name="repitePass"  :type="'password'" v-on:click="clearError" v-model="repitePass"  required/>
         </label>
       </div>
-      <div><button type="submit" class="myButton" >Aceptar</button></div>
+      <div><button type="submit" class="myButton" >Aceptar</button></div><br>
        <div v-if="errorMessage" class="errormessage">
                    <div v-for="error in errorMessage" v-bind:key="error.index"><br>
                     {{error}}
@@ -40,8 +40,7 @@
         <hr />
         <br />
         <span>
-          Ya tienes cuenta? <router-link to="/">Iniciar Sesión</router-link></span>
-         
+          Ya tienes cuenta? <router-link to="/">Iniciar Sesión</router-link></span>         
       </div>
     </form>
   </div>
@@ -63,12 +62,13 @@ export default Vue.extend({
   methods: {
      validateForm(){
             console.log(history)
-            if(this.repitePass == this.password ){
+            if(this.repitePass == this.password ){    
+                if(this.password.length<21 && this.password.length>7){                      
                 this.submitForm()
-            }else{              
-              this.errorMessage.push('Las Contraseñas no Coinciden')
+            }else{this.errorMessage.push('La Contraseña debe tener entre 8 y 20 caracteres')             
               return
-            }
+            }}else{
+             this.errorMessage.push('Las Contraseñas no Coinciden')}
             console.log(this.errorMessage)
         },
     clearError() {

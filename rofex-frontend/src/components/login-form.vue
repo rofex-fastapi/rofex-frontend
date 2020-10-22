@@ -5,7 +5,8 @@
       <div class="userinputwrapper">
         <label for="username">
           <v-text-field
-            label="Usuario"
+            label="Email"
+            :type="'email'"
             name="username"
             v-on:click="clearError"
             v-model="username"
