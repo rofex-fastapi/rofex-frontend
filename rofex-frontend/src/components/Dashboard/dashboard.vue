@@ -66,6 +66,9 @@ export default Vue.extend({
       user: "",
     };
   },
+  mounted() {
+    this.$store.dispatch("getTrades");
+  },
 });
 </script>
 

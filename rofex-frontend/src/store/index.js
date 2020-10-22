@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import Api from "@/services/api";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ function authHeaders(token) {
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem("access_token") || null,
-    currentUser: {},
+    currentUser: null,
+    trades: [],
   },
   getters: {
     isLoggedIn(state) {
@@ -37,10 +39,41 @@ export const store = new Vuex.Store({
     DESTROY_TOKEN(state) {
       state.token = null;
     },
+    SET_TRADES(state, trades) {
+      state.trades = trades;
+    },
   },
   actions: {
+    async getTrades({ state }) {
+      if (state.currentUser !== null) {
+        await this.getMe;
+      }
+      try {
+        //formData no
+        //state.currentUser.id no
+        //{ iduser: state.currentUser.id } no
+        const limit = 100;
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+        const data = await Api().post(
+          `/trades/?user_id=${state.currentUser.id}&limit=${limit}`
+        );
+        console.log(data);
+        return data;
+      } catch (error) {
+        return {
+          error: "Error al buscar el usuario",
+        };
+      }
+    },
+
     //GET USER ONCE LOGGED IN
     async getMe({ commit, state }) {
+      if (state.currentUser !== null) {
+        return state.currentUser;
+      }
       try {
         if (!state.token) {
           return {
