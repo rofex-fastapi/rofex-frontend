@@ -32,8 +32,12 @@
         </label>
       </div>
       <div><button type="submit" class="myButton">Ingresar</button></div>
-
-      <br />
+      <br>
+      <div v-if="errorMessage" class="errormessage">
+        <div><br>
+                    {{errorMessage}}
+        </div>
+      </div>
       <div class="signup">
         <hr />
         <br />
@@ -55,17 +59,16 @@ export default {
     return {
       username: "",
       password: "",
-      errorMessage: [],
-      users: [],
+      errorMessage: "",
+      users: [],      
     };
   },
-  beforeCreate() {
-    //check if the user is loggedIn if false redirect to login page
+ 
+  computed: {
   },
-  computed: {},
   methods: {
     clearError() {
-      this.errorMessage = [];
+      this.errorMessage = "";
     },
     login() {
       this.$store
@@ -76,7 +79,12 @@ export default {
         .then((response) => {
           this.$router.push({ name: "Dashboard" });
           return response;
-        });
+        })
+        .catch((error)=>{
+        this.errorMessage='Datos Incorrentos';
+        return error;
+    });        
+      
     },
   },
 };

@@ -63,7 +63,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      user: "",
     };
   },
   mounted() {

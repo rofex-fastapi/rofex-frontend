@@ -43,6 +43,11 @@ export default Vue.extend({
     Sidebar,
     Trade,
   },
+  beforeCreate() {//check if the user is loggedIn
+    if(!this.$store.getters.isLoggedIn){
+      this.$router.push({ name: "Login" });
+    }    
+  },
   data() {
     return {
       user: "",

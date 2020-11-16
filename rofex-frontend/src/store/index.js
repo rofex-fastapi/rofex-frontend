@@ -44,6 +44,9 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
+    LOGOUT_USER(context) {//Limpia array de datos del user
+      context.commit('LOGOUT_USER')
+    },
     async getTrades({ state, commit }) {
       if (state.currentUser !== null) {
         await this.getMe;
@@ -155,27 +158,17 @@ export const store = new Vuex.Store({
     //},
     createTrades(context, data) {
       return new Promise((resolve, reject) => {
-        // let dat = {
-        //   symbol: data.Symbol,
-        //   size: data.Size,
-        //   price: data.Price,
-        //   datetime: data.Datetime,
-        //   iduser: this.state.currentUser.id,
-        // };
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${this.state.token}`;
-        axios.defaults.headers.post["Content-Type"] = "application/json";
+        
         Api()
-          .post("/create-trade/", {
-            params: {
-              symbol: data.Symbol,
-              size: data.Size,
-              price: data.Price,
-              datetime: data.Datetime,
-              iduser: this.state.currentUser.id,
+          .post("/create-trade/", 
+            {
+              "symbol": data.symbol,
+              "size": parseFloat(data.size),
+              "price": parseFloat(data.price),
+              "datetime": data.datetime,
+              "iduser": this.state.currentUser.id,
             },
-          })
+          authHeaders(this.state.token))
           .then((response) => {
             console.log(response);
             resolve(response);

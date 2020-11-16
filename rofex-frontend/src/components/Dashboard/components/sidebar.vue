@@ -6,10 +6,10 @@
     ></i
     ><br />
     <div class="heading">
-      <img src="img/img-persona.png" alt="" />
+      <img src="https://www.flaticon.com/svg/static/icons/svg/149/149071.svg" alt="" />
       <div class="infoHome">
         <p v-if="isLoggedIn">
-          {{ currentUser.lastname + ", " + currentUser.name }}
+          {{ currentUser.lastname + ", " + currentUser.name }} <br> <br> Bienvenido
         </p>
       </div>
     </div>
@@ -25,10 +25,9 @@
         <i class="fa fa-bolt fa-fw"></i>
         <router-link to="/trades">Agregar Trades</router-link>
       </li>
-      <li>
-        <i class="fa fa-sign-out" style="color:white"></i
-        ><v-btn @click="logout"> Cerrar sesion</v-btn>
-      </li>
+      <li v-if="isLoggedIn"><i class="fa fa-sign-out" style="color:white"></i
+        ><router-link :to="{ name: 'logout' }">Cerrar Sesión</router-link></li>
+      
     </ul>
     <!-- <div v-for="trade in trades" :key="trade.id" color="white">
       {{ trade.id }}
@@ -41,23 +40,20 @@ import Vue from "vue";
 import { mapState, mapGetters } from "vuex";
 export default Vue.extend({
   name: "Sidebar",
+  
   props: {},
   computed: {
     ...mapState(["currentUser"], ["trades"]),
     ...mapGetters(["isLoggedIn"]),
   },
+  
   mounted() {
     this.$store.dispatch("getMe").then(() => {
       this.$store.dispatch("getTrades");
     });
+    
   },
   methods: {
-    logout() {
-      this.$store.dispatch("destroyToken").then((response) => {
-        this.$router.push({ name: "Login" });
-        return response;
-      });
-    },
   },
 });
 </script>

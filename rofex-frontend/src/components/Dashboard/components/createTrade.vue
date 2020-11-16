@@ -33,6 +33,7 @@
                   <p>Size</p>
                   <input
                     type="number"
+                    step="0.01"
                     min="0"
                     v-on:click="clearError"
                     v-model="Size"
@@ -48,6 +49,8 @@
                   <p>Price</p>
                   <input
                     type="number"
+                    
+                    step="0.01"
                     min="0"
                     v-on:click="clearError"
                     v-model="Price"
@@ -63,7 +66,7 @@
                   <p>Datetime</p>
                   <input
                     type="datetime-local"
-                    max="2020-10-22T23:59"
+                    max="2020-11-20T23:59"
                     v-on:click="clearError"
                     id="Datetime"
                     v-model="Datetime"
@@ -74,11 +77,10 @@
                 </label>
               </div>
               <div v-if="errorMessage" class="errormessage">
-                <div v-for="error in errorMessage" v-bind:key="error.index">
-                  {{ error }}
-                </div>
+                  <div><br>
+                    {{errorMessage}}
+                  </div>
               </div>
-              <br />
               <div>
                 <button type="submit" class="submitbtnTrade">Crear</button>
               </div>
@@ -100,12 +102,12 @@ export default Vue.extend({
       Size: "",
       Price: "",
       Datetime: "",
-      errorMessage: [],
+      errorMessage: "",
     };
   },
   methods: {
     clearError() {
-      this.errorMessage = [];
+      this.errorMessage = "";
     },
     createTrad() {
       this.$store.dispatch("createTrades", {
@@ -113,7 +115,11 @@ export default Vue.extend({
         size: this.Size,
         price: this.Price,
         datetime: this.Datetime,
-      });
+      })
+      .catch((error)=>{
+        this.errorMessage='Error al Ingresar Trade. Intente mas tarde.';
+        return error;
+    });
     },
   },
 });

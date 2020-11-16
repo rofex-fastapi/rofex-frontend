@@ -85,7 +85,11 @@ export default Vue.extend({
           .then(response=>{
             this.$router.push({ name: 'Login' });        
             return response
-            })      
+            })
+          .catch((error)=>{
+          this.errorMessage.push('El email ya se encuentra registrado');
+          return error;
+            });      
     }
   }
 });
