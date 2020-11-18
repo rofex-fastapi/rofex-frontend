@@ -10,10 +10,11 @@ export default {
   components: {
     login,
   },
-  beforeCreate() {//check if the user is loggedIn
-    if(this.$store.getters.isLoggedIn){
-      this.$router.push({ name: "Dashboard" });
-    }    
+  beforeCreate() {
+    //check if the user is loggedIn
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "Menu" });
+    }
   },
 };
 </script>

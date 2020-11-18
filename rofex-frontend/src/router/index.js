@@ -6,6 +6,7 @@ import Registration from "../views/registration.vue";
 import Dashboard from "../views/dashboard.vue";
 import Trades from "../components/trades.vue";
 import LogOut from "../components/Logout.vue";
+import menu from "../views/menu.vue";
 
 Vue.use(VueRouter);
 
@@ -46,6 +47,14 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/menu",
+    name: "Menu",
+    component: menu,
     meta: {
       requiresAuth: false,
     },

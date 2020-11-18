@@ -32,10 +32,11 @@
         </label>
       </div>
       <div><button type="submit" class="myButton">Ingresar</button></div>
-      <br>
+      <br />
       <div v-if="errorMessage" class="errormessage">
-        <div><br>
-                    {{errorMessage}}
+        <div>
+          <br />
+          {{ errorMessage }}
         </div>
       </div>
       <div class="signup">
@@ -60,12 +61,11 @@ export default {
       username: "",
       password: "",
       errorMessage: "",
-      users: [],      
+      users: [],
     };
   },
- 
-  computed: {
-  },
+
+  computed: {},
   methods: {
     clearError() {
       this.errorMessage = "";
@@ -77,14 +77,13 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          this.$router.push({ name: "Dashboard" });
+          this.$router.push({ name: "Menu" });
           return response;
         })
-        .catch((error)=>{
-        this.errorMessage='Datos Incorrentos';
-        return error;
-    });        
-      
+        .catch((error) => {
+          this.errorMessage = "Datos Incorrentos";
+          return error;
+        });
     },
   },
 };
