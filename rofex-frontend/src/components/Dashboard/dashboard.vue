@@ -52,7 +52,6 @@ import DashboardNav from "./components/dashboardNav";
 
 import Tables from "./components/Tables";
 import Charts from "./components/charts";
-
 export default Vue.extend({
   name: "Dashboard",
   components: {
@@ -70,7 +69,6 @@ export default Vue.extend({
       this.$store.dispatch("getTrades");
     });
   },
-  created() {},
 });
 </script>
 

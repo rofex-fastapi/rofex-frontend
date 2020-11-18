@@ -25,6 +25,9 @@ export const store = new Vuex.Store({
     getUser(state) {
       return state.user;
     },
+    getTrades(state) {
+        return state.trades      
+    },
   },
   mutations: {
     SET_CURRENT_USER(state, user) {
@@ -32,6 +35,7 @@ export const store = new Vuex.Store({
     },
     LOGOUT_USER(state) {
       state.currentUser = {};
+      state.trades = [];
     },
     RETURN_TOKEN(state, token) {
       state.token = token;
