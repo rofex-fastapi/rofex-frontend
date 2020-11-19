@@ -11,7 +11,7 @@
               </h1>
               <div class="UIWr">
                 <label for="firstname">
-                  <p>Symbol</p>
+                  <p>Dolar Futuro</p>
                   <select
                     name="Symbol"
                     id="Symbol"
@@ -30,10 +30,9 @@
               </div>
               <div class="UIWr">
                 <label for="Size">
-                  <p>Size</p>
+                  <p>Cantidad Comprada</p>
                   <input
                     type="number"
-                    step="0.01"
                     min="0"
                     v-on:click="clearError"
                     v-model="Size"

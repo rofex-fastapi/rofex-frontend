@@ -16,14 +16,18 @@
             <div id="app" class="container col-md-12" v-if="trades.length !== 0">
               <table border="1" >
                 <thead >
-                  <th>Simbolo</th>
-                  <th>Cantidad de </th>
-                  <th>Precio ($)</th>
+                  <th>Dolar Futuro</th>
+                  <th>Cantidad Comprada </th>
+                  <th>Precio ($)</th>                  
+                  <th>Fecha </th>
+                  <th></th>
                 </thead>
                 <tr v-for="trade in trades" v-bind:key="trade.idtrade">
                   <td>{{ trade.symbol }}</td>
                   <td>{{ trade.size }}</td>
                   <td>{{ trade.price }}</td>
+                  <td>{{ trade.datetime }}</td>
+                  <td><button class="red"> Eliminar</button></td>
                 </tr>
               </table>
             </div>
@@ -36,6 +40,7 @@
 </template>
 <script>
 import Vue from "vue";
+import moment from 'moment';
 export default Vue.extend({
   name: "Tables",
   data() {
@@ -46,15 +51,23 @@ export default Vue.extend({
   mounted() {
     console.log("Iniciando tabla");
     this.getTrades();
+    this.trades.forEach(trade => {
+        trade.datetime=  moment(trade.datetime).format('DD/MMM/YYYY');
+      });
   },
   methods: {
     getTrades: function() {
       this.trades = this.$store.getters.getTrades;
+      
+      
     },
   },
 });
 </script>
 <style scoped>
+.red {background-color: #f44336;
+border-radius:10px ;
+}
 td + td,
 th + th { border-left: 2px solid black; }
 tr + tr { border-top: 2px solid black; }
