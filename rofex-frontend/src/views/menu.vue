@@ -57,11 +57,18 @@
 <script>
 export default {
   name: "menu",
+  beforeCreate() {
+    //check if the user is loggedIn
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "Login" });
+    }
+  },
   mounted() {
     this.$store.dispatch("getMe").then(() => {
       this.$store.dispatch("getTrades");
     });
   },
+
   components: {},
   data: () => ({
     items: [

@@ -37,10 +37,17 @@ import DashboardNav from "./Dashboard/components/dashboardNav";
 import Tables from "./Dashboard/components/table";
 export default Vue.extend({
   name: "Dashboard",
+
   components: {
     DashboardNav,
     Sidebar,
     Tables,
+  },
+  beforeCreate() {
+    //check if the user is loggedIn
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "Login" });
+    }
   },
   data() {
     return {};

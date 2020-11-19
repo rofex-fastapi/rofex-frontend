@@ -19,7 +19,7 @@ const routes = [
     name: "trades",
     component: Trades,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -27,7 +27,7 @@ const routes = [
     name: "logout",
     component: LogOut,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -51,7 +51,7 @@ const routes = [
     name: "Dashboard",
     component: Dashboard,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -59,7 +59,7 @@ const routes = [
     name: "Menu",
     component: menu,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -67,7 +67,7 @@ const routes = [
     name: "Table",
     component: Table,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
@@ -75,7 +75,7 @@ const routes = [
     name: "Graphs",
     component: Graphs,
     meta: {
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
 ];
