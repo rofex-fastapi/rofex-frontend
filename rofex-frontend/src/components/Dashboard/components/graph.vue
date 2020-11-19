@@ -10,7 +10,8 @@
               <strong> Graficos</strong>
               <hr class="linea" />
               </h1>
-
+              <div class="graphsChart">
+              </div>
           </div>
         </div>
         </div>
@@ -19,10 +20,21 @@
   </section>
 </template>
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
+import { createChart } from 'lightweight-charts';
 export default Vue.extend({
-  name:'Charts'  
+  name:'Charts'  ,
+  data(){
+    return{
+    }
+  },
+  mounted(){    
+
+  }
 })
+
+
+
 </script>
 <style >
 .charts {
