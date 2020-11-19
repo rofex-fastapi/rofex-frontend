@@ -5,7 +5,7 @@
         <div class="col-md-12">
           <div class="tableWr">
             
-          <div class="formWra">
+          <div class="formWra ">
             <h1 class="text-center titletrade">
               <strong> Sus Trades</strong>
               <hr class="linea" />
@@ -13,8 +13,8 @@
             <div id="app" class="container" v-if="trades.length == 0">
               <h2>No hay Trades Cargados</h2>
             </div>
-            <div id="app" class="container" v-if="trades.length !== 0">
-              <table border="1" class="text-center">
+            <div id="app" class="container col-md-12" v-if="trades.length !== 0">
+              <table border="1" class="text-center " >
                 <thead>
                   <th>Simbolo</th>
                   <th>Cantidad</th>
@@ -63,7 +63,7 @@ table{
    position:relative;
    margin:auto;
    width:100%;
-   /*left:-15%*/;
+   left:auto;
 }
 .titletrade {
   position: relative;

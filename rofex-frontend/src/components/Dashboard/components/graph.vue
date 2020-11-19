@@ -3,43 +3,97 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="tableWr">
-            
-          <div class="formWra">
-            <h1 class="text-center titletrade">
-              <strong> Graficos</strong>
+          <div class="tableWr">            
+            <div class="formWra">
+                <h1 class="text-center titletrade">
+              <strong> Sus Trades</strong>
               <hr class="linea" />
               </h1>
-              <div class="graphsChart">
+              <div class="grafico" >
+              <div class="row mt-5" v-if="arrPositive.length > 0">
+                <div class="col">
+                  <h2 class="text-center ti" >Trades</h2>
+                  <line-chart
+                    :chartData="arrPositive"
+                    :options="chartOptions"
+                    :chartColors="positiveChartColors"
+                    label="Precio"
+                  />
+                </div>
               </div>
-          </div>
+              </div>
+            </div>
         </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
 <script>
-import Vue from 'vue';
-import { createChart } from 'lightweight-charts';
-export default Vue.extend({
-  name:'Charts'  ,
-  data(){
-    return{
-    }
+import LineChart from "./Vuechart";
+
+export default {
+  components: {
+    LineChart
   },
-  mounted(){    
+  data() {
+    return {
 
-  }
-})
+      arrPositive: [],
+      positiveChartColors: {
+        borderColor: "#077187",
+        pointBorderColor: "#0E1428",
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        gridLines:true
+        ,scales: {
+                    xAxes: [{
+                            type: "time",
+                            time: {
+                                unit: 'day',
+                                round: 'day',
+                            },
+                        }],
+                    yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                }
+      }
+    };
+  },
+  async mounted() {
+    const  data  = this.getTrades();
 
-
-
+    data.forEach(d => {
+      const date = d.datetime;
+      const {
+        price,
+      } = d;
+      this.arrPositive.push({ date, total: price });
+    });
+  },
+  methods: {
+    getTrades: function() {
+      return this.$store.getters.getTrades;
+    },}
+};
 </script>
-<style >
+
+<style scoped>
 .charts {
-  height: auto;
+  height: auto;  
   min-height:895px
+}
+.ti{
+  color: black;
+}
+.grafico{
+  background-color: rgba(255, 255, 255, 0.747);
 }
 table{
    position:relative;

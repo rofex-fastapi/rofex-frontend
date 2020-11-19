@@ -59,6 +59,10 @@ export default Vue.extend({
 </script>
 
 <style>
+.charts {
+  height: auto;  
+  min-height:895px
+}
 * {
   padding: 0;
   margin: 0;
