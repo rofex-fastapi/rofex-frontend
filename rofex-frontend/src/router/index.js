@@ -33,7 +33,7 @@ const routes = [
   {
     path: "/",
     name: "Login",
-    component: Login,
+    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
     meta: {
       requiresAuth: false,
     },
@@ -41,7 +41,7 @@ const routes = [
   {
     path: "/registration",
     name: "Registration",
-    component: Registration,
+    component: () => import(/* webpackChunkName: "login" */ '../views/registration.vue'),
     meta: {
       requiresAuth: false,
     },
