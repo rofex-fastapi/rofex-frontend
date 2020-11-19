@@ -50,7 +50,7 @@ import Vue from "vue";
 import Sidebar from "./components/sidebar";
 import DashboardNav from "./components/dashboardNav";
 
-import Tables from "./components/Tables";
+import Tables from "./components/table";
 import Charts from "./components/charts";
 export default Vue.extend({
   name: "Dashboard",
@@ -61,8 +61,7 @@ export default Vue.extend({
     Tables,
   },
   data() {
-    return {
-    };
+    return {};
   },
   mounted() {
     this.$store.dispatch("getMe").then(() => {

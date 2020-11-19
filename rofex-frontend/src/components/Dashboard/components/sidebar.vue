@@ -6,10 +6,15 @@
     ></i
     ><br />
     <div class="heading">
-      <img src="https://www.flaticon.com/svg/static/icons/svg/149/149071.svg" alt="" />
+      <img
+        src="https://www.flaticon.com/svg/static/icons/svg/149/149071.svg"
+        alt=""
+      />
       <div class="infoHome">
         <p v-if="isLoggedIn">
-          {{ currentUser.lastname + ", " + currentUser.name }} <br> <br> Bienvenido
+          {{ currentUser.lastname + ", " + currentUser.name }} <br />
+          <br />
+          Bienvenido
         </p>
       </div>
     </div>
@@ -18,16 +23,21 @@
     </div>-->
     <ul class="categories">
       <li>
-        <i class="fa fa-users fa-fw"></i>
-        <router-link to="/dashboard">Home</router-link>
+        <v-icon class="pt-5 mt-5 icon">mdi-chart-tree</v-icon>
+        <router-link to="/table">Tabla de trades</router-link>
       </li>
       <li>
-        <i class="fa fa-bolt fa-fw"></i>
-        <router-link to="/trades">Agregar Trades</router-link>
+        <v-icon class="pt-5 mt-5 icon">mdi-finance</v-icon>
+        <router-link to="/graphs">Grafica de cada trade</router-link>
       </li>
-      <li v-if="isLoggedIn"><i class="fa fa-sign-out" style="color:white"></i
-        ><router-link :to="{ name: 'logout' }">Cerrar Sesión</router-link></li>
-      
+      <li>
+        <v-icon class="pt-5 mt-5 icon">mdi-plus</v-icon>
+        <router-link to="/trades">Agregar un trade</router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <i class="fa fa-sign-out" style="color:white"></i
+        ><router-link :to="{ name: 'logout' }">Cerrar Sesión</router-link>
+      </li>
     </ul>
     <!-- <div v-for="trade in trades" :key="trade.id" color="white">
       {{ trade.id }}
@@ -40,22 +50,24 @@ import Vue from "vue";
 import { mapState, mapGetters } from "vuex";
 export default Vue.extend({
   name: "Sidebar",
-  
+
   props: {},
   computed: {
     ...mapState(["currentUser"], ["trades"]),
     ...mapGetters(["isLoggedIn"]),
   },
-  
+
   mounted() {
     this.$store.dispatch("getMe").then(() => {
       this.$store.dispatch("getTrades");
     });
-    
   },
-  methods: {
-  },
+  methods: {},
 });
 </script>
 
-<style></style>
+<style>
+.icon {
+  color: #aaa !important;
+}
+</style>

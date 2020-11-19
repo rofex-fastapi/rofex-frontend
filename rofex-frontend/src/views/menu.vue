@@ -68,17 +68,17 @@ export default {
       {
         icon: "mdi-chart-tree",
         text: "Tabla de trades",
-        path: "dashboard",
+        path: "table",
       },
       {
         icon: "mdi-finance",
         text: "Grafica de cada trade",
-        path: "dashboard",
+        path: "graphs",
       },
       {
         icon: "mdi-plus",
         text: "Agregar un trade",
-        path: "dashboard",
+        path: "trades",
       },
     ],
   }),

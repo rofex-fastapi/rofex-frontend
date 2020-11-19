@@ -4,9 +4,12 @@ import VueRouter from "vue-router";
 import Login from "../views/login.vue";
 import Registration from "../views/registration.vue";
 import Dashboard from "../views/dashboard.vue";
-import Trades from "../components/trades.vue";
 import LogOut from "../components/Logout.vue";
 import menu from "../views/menu.vue";
+
+import Trades from "../components/trades.vue";
+import Table from "../components/table-chart.vue";
+import Graphs from "../components/graphs.vue";
 
 Vue.use(VueRouter);
 
@@ -55,6 +58,22 @@ const routes = [
     path: "/menu",
     name: "Menu",
     component: menu,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/table",
+    name: "Table",
+    component: Table,
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/graphs",
+    name: "Graphs",
+    component: Graphs,
     meta: {
       requiresAuth: false,
     },

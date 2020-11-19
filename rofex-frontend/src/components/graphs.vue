@@ -23,7 +23,9 @@
       <Sidebar v-bind:user="user" />
       <section id="contents">
         <DashboardNav />
-        <Trade />
+        <Charts />
+        <Charts />
+        <Charts />
       </section>
     </body>
   </html>
@@ -34,26 +36,21 @@ import Vue from "vue";
 import Sidebar from "./Dashboard/components/sidebar";
 import DashboardNav from "./Dashboard/components/dashboardNav";
 
-import Trade from "./Dashboard/components/createTrade";
-
+import Charts from "./Dashboard/components/charts";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     DashboardNav,
     Sidebar,
-    Trade,
-  },
-  beforeCreate() {
-    //check if the user is loggedIn
-    if (!this.$store.getters.isLoggedIn) {
-      this.$router.push({ name: "Login" });
-    }
+    Charts,
   },
   data() {
-    return {
-      user: "",
-      isloggedIn: false,
-    };
+    return {};
+  },
+  mounted() {
+    this.$store.dispatch("getMe").then(() => {
+      this.$store.dispatch("getTrades");
+    });
   },
 });
 </script>
