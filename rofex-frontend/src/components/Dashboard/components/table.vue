@@ -14,11 +14,11 @@
               <h2>No hay Trades Cargados</h2>
             </div>
             <div id="app" class="container col-md-12" v-if="trades.length !== 0">
-              <table border="1" class="text-center " >
-                <thead>
+              <table border="1" >
+                <thead >
                   <th>Simbolo</th>
-                  <th>Cantidad</th>
-                  <th>Precio</th>
+                  <th>Cantidad de </th>
+                  <th>Precio ($)</th>
                 </thead>
                 <tr v-for="trade in trades" v-bind:key="trade.idtrade">
                   <td>{{ trade.symbol }}</td>
@@ -55,6 +55,13 @@ export default Vue.extend({
 });
 </script>
 <style scoped>
+td + td,
+th + th { border-left: 2px solid black; }
+tr + tr { border-top: 2px solid black; }
+
+td,
+th { padding: 3px; }
+
 .charts {
   height: auto;  
   min-height:895px
@@ -64,7 +71,21 @@ table{
    margin:auto;
    width:100%;
    left:auto;
+   background-color: #c7ace6;
+   border: black;
+  color: black;
+  border-radius:1px
+   
 }
+th{
+  text-align: center;
+  color: black;
+  background-color: #7b5e9b;
+  border-radius:1px;
+  
+  font-size: 30px;
+}
+
 .titletrade {
   position: relative;
   text-align: center;

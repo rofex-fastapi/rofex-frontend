@@ -1,8 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Login from "../views/login.vue";
-import Registration from "../views/registration.vue";
 import Dashboard from "../views/dashboard.vue";
 import LogOut from "../components/Logout.vue";
 import menu from "../views/menu.vue";

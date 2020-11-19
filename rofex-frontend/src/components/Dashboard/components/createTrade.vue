@@ -82,7 +82,7 @@
                   </div>
               </div>
               <div>
-                <button type="submit" class="submitbtnTrade">Crear</button>
+                <button type="submit" class="submitbtnTrade" >Crear</button>
               </div>
             </form>
           </div>
@@ -106,6 +106,8 @@ export default Vue.extend({
     };
   },
   methods: {
+    
+  
     clearError() {
       this.errorMessage = "";
     },
@@ -115,7 +117,9 @@ export default Vue.extend({
         size: this.Size,
         price: this.Price,
         datetime: this.Datetime,
-      })
+      }).then(
+        alert('Trade Registrado Correctamente!'),
+      )
       .catch((error)=>{
         this.errorMessage='Error al Ingresar Trade. Intente mas tarde.';
         return error;
