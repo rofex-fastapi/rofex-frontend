@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 import Dashboard from "../views/dashboard.vue";
 import LogOut from "../components/Logout.vue";
 import menu from "../views/menu.vue";
+import Login from "../views/login.vue";
+import Registration from "../views/registration.vue";
 
 import Trades from "../components/trades.vue";
 import Table from "../components/table-chart.vue";
