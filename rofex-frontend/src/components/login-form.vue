@@ -1,14 +1,12 @@
 <template>
   <div class="loginwrapper">
-    <form
-      v-on:submit.prevent="errorMessage.length == 0 ? validateForm() : ''"
-      class="formwrapper"
-    >
+    <form v-on:submit.prevent="login" class="formwrapper">
       <h1 class="text-center">Iniciar Sesion</h1>
       <div class="userinputwrapper">
         <label for="username">
           <v-text-field
-            label="Usuario"
+            label="Email"
+            :type="'email'"
             name="username"
             v-on:click="clearError"
             v-model="username"
@@ -19,11 +17,13 @@
       </div>
       <div>
         <label for="password">
+          <!--
+           -->
           <v-text-field
+            type="password"
             label="Contraseña"
             name="password"
             required
-            :type="showPass ? 'text' : 'password'"
             v-on:click="clearError"
             id="password"
             v-model="password"
@@ -32,12 +32,13 @@
         </label>
       </div>
       <div><button type="submit" class="myButton">Ingresar</button></div>
+      <br />
       <div v-if="errorMessage" class="errormessage">
-        <div v-for="error in errorMessage" v-bind:key="error.index">
-          {{ error }}
+        <div>
+          <br />
+          {{ errorMessage }}
         </div>
       </div>
-      <br />
       <div class="signup">
         <hr />
         <br />
@@ -52,49 +53,40 @@
 </template>
 
 <script>
-import Vue from "vue";
-export default Vue.extend({
+export default {
   name: "Login",
+
   data() {
     return {
       username: "",
       password: "",
-      errorMessage: [],
+      errorMessage: "",
+      users: [],
     };
   },
+
+  computed: {},
   methods: {
-    validateForm() {
-      console.log(history);
-      if (this.username == "") {
-        this.errorMessage.push(" Username is required");
-      }
-      if (this.password == "") {
-        this.errorMessage.push(" Password is required");
-        return;
-      }
-      if (this.username !== "" && this.password !== "") {
-        this.submitForm();
-      }
-      console.log(this.errorMessage);
-    },
     clearError() {
-      console.log("form fields cleared");
-      this.errorMessage = [];
+      this.errorMessage = "";
     },
-    submitForm() {
-      const data = {
-        email: this.username,
-        password: this.password,
-      };
-      console.log(data);
-      localStorage.setItem("userinfo", JSON.stringify(data)); //in the absence of a real api for user auth this would handle auth
-      alert("Form Submitted");
-      //make network request
-      //axios post
-      this.$router.push("/dashboard");
+    login() {
+      this.$store
+        .dispatch("returnToken", {
+          username: this.username,
+          password: this.password,
+        })
+        .then((response) => {
+          this.$router.push({ name: "Menu" });
+          return response;
+        })
+        .catch((error) => {
+          this.errorMessage = "Datos Incorrentos";
+          return error;
+        });
     },
   },
-});
+};
 </script>
 
 <style>

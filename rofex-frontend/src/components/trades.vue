@@ -23,23 +23,7 @@
       <Sidebar v-bind:user="user" />
       <section id="contents">
         <DashboardNav />
-        <!-- <div class="welcome">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="content">
-                  <h2>Bienvenido</h2>
-                  <p>En esta pagina vas a encontrar...</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <Tables />
-        <!-- podriamos agregar los ultimos trades hechos en la parte de tables-->
-        <Graph />
-        <Graph />
-        <Graph />
+        <Trade />
       </section>
     </body>
   </html>
@@ -47,31 +31,38 @@
 
 <script>
 import Vue from "vue";
-import Sidebar from "./components/sidebar";
-import DashboardNav from "./components/dashboardNav";
+import Sidebar from "./Dashboard/components/sidebar";
+import DashboardNav from "./Dashboard/components/dashboardNav";
 
-import Tables from "./components/table";
-import Graph from "./components/graph";
+import Trade from "./Dashboard/components/createTrade";
+
 export default Vue.extend({
   name: "Dashboard",
   components: {
     DashboardNav,
     Sidebar,
-    Graph,
-    Tables,
+    Trade,
+  },
+  beforeCreate() {
+    //check if the user is loggedIn
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push({ name: "Login" });
+    }
   },
   data() {
-    return {};
-  },
-  mounted() {
-    this.$store.dispatch("getMe").then(() => {
-      this.$store.dispatch("getTrades");
-    });
+    return {
+      user: "",
+      isloggedIn: false,
+    };
   },
 });
 </script>
 
 <style>
+.charts {
+  height: auto;  
+  min-height:895px
+}
 * {
   padding: 0;
   margin: 0;
