@@ -70,4 +70,5 @@ export default Vue.extend({
 .icon {
   color: #aaa !important;
 }
+
 </style>

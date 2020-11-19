@@ -37,9 +37,9 @@
         </div> -->
         <Tables />
         <!-- podriamos agregar los ultimos trades hechos en la parte de tables-->
-        <Charts />
-        <Charts />
-        <Charts />
+        <Graph />
+        <Graph />
+        <Graph />
       </section>
     </body>
   </html>
@@ -51,13 +51,13 @@ import Sidebar from "./components/sidebar";
 import DashboardNav from "./components/dashboardNav";
 
 import Tables from "./components/table";
-import Charts from "./components/charts";
+import Graph from "./components/graph";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     DashboardNav,
     Sidebar,
-    Charts,
+    Graph,
     Tables,
   },
   data() {

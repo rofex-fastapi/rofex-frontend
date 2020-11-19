@@ -23,9 +23,7 @@
       <Sidebar v-bind:user="user" />
       <section id="contents">
         <DashboardNav />
-        <Charts />
-        <Charts />
-        <Charts />
+        <Graph />
       </section>
     </body>
   </html>
@@ -36,13 +34,13 @@ import Vue from "vue";
 import Sidebar from "./Dashboard/components/sidebar";
 import DashboardNav from "./Dashboard/components/dashboardNav";
 
-import Charts from "./Dashboard/components/charts";
+import Graph from "./Dashboard/components/graph";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     DashboardNav,
     Sidebar,
-    Charts,
+    Graph,
   },
   beforeCreate() {
     //check if the user is loggedIn
