@@ -4,35 +4,42 @@
       <div class="row">
         <div class="col-md-12">
           <div class="tableWr">
-            
-          <div class="formWra ">
-            <h1 class="text-center titletrade">
-              <strong> Sus Trades</strong>
-              <hr class="linea" />
+            <div class="formWra ">
+              <h1 class="text-center titletrade">
+                <strong> Sus Trades</strong>
+                <hr class="linea" />
               </h1>
-            <div id="app" class="container" v-if="trades.length == 0">
-              <h2>No hay Trades Cargados</h2>
-            </div>
-            <div id="app" class="container col-md-12" v-if="trades.length !== 0">
-              <table border="1" >
-                <thead >
-                  <th>Dolar Futuro</th>
-                  <th>Cantidad Comprada </th>
-                  <th>Precio ($)</th>                  
-                  <th>Fecha </th>
-                  <th></th>
-                </thead>
-                <tr v-for="trade in trades" v-bind:key="trade.idtrade">
-                  <td>{{ trade.symbol }}</td>
-                  <td>{{ trade.size }}</td>
-                  <td>{{ trade.price }}</td>
-                  <td>{{ trade.datetime }}</td>
-                  <td><button class="red"> Eliminar</button></td>
-                </tr>
-              </table>
+              <div id="app" class="container" v-if="trades.length == 0">
+                <h2>No hay Trades Cargados</h2>
+              </div>
+              <div
+                id="app"
+                class="container col-md-12"
+                v-if="trades.length !== 0"
+              >
+                <table border="1">
+                  <thead>
+                    <th>Dolar Futuro</th>
+                    <th>Cantidad Comprada</th>
+                    <th>Precio ($)</th>
+                    <th>Fecha</th>
+                    <th></th>
+                  </thead>
+                  <tr v-for="trade in trades" v-bind:key="trade.idtrade">
+                    <td>{{ trade.symbol }}</td>
+                    <td>{{ trade.size }}</td>
+                    <td>{{ trade.price }}</td>
+                    <td>{{ trade.datetime }}</td>
+                    <td>
+                      <button class="red" @click="deleteTrade(trade.idtrade)">
+                        <v-icon id="iconDelete">mdi-delete</v-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -40,7 +47,9 @@
 </template>
 <script>
 import Vue from "vue";
-import moment from 'moment';
+import moment from "moment";
+import { mapActions } from "vuex";
+
 export default Vue.extend({
   name: "Tables",
   data() {
@@ -49,53 +58,57 @@ export default Vue.extend({
     };
   },
   mounted() {
-    console.log("Iniciando tabla");
     this.getTrades();
-    this.trades.forEach(trade => {
-        trade.datetime=  moment(trade.datetime).format('DD/MMM/YYYY');
-      });
+    this.trades.forEach((trade) => {
+      trade.datetime = moment(trade.datetime).format("DD/MMM/YYYY");
+    });
   },
   methods: {
     getTrades: function() {
       this.trades = this.$store.getters.getTrades;
-      
-      
     },
+    ...mapActions(["deleteTrade"]),
   },
 });
 </script>
 <style scoped>
-.red {background-color: #f44336;
-border-radius:10px ;
+.red {
+  background-color: #f44336;
+  border-radius: 10px;
 }
 td + td,
-th + th { border-left: 2px solid black; }
-tr + tr { border-top: 2px solid black; }
+th + th {
+  border-left: 2px solid black;
+}
+tr + tr {
+  border-top: 2px solid black;
+}
 
 td,
-th { padding: 3px; }
+th {
+  padding: 3px;
+}
 
 .charts {
-  height: auto;  
-  min-height:895px
+  height: auto;
+  min-height: 895px;
 }
-table{
-   position:relative;
-   margin:auto;
-   width:100%;
-   left:auto;
-   background-color: #c7ace6;
-   border: black;
+table {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  left: auto;
+  background-color: #c7ace6;
+  border: black;
   color: black;
-  border-radius:1px
-   
+  border-radius: 1px;
 }
-th{
+th {
   text-align: center;
   color: black;
   background-color: #7b5e9b;
-  border-radius:1px;
-  
+  border-radius: 1px;
+
   font-size: 30px;
 }
 
@@ -119,5 +132,10 @@ th{
   color: #bbb;
   font-size: 23px;
   display: block;
+}
+#iconDelete {
+  margin: 5px;
+  font-size: 30px;
+  color: #ffffff;
 }
 </style>

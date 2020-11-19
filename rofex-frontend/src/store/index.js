@@ -26,7 +26,7 @@ export const store = new Vuex.Store({
       return state.user;
     },
     getTrades(state) {
-        return state.trades      
+      return state.trades;
     },
   },
   mutations: {
@@ -46,10 +46,14 @@ export const store = new Vuex.Store({
     SET_TRADES(state, trades) {
       state.trades = trades;
     },
+    DELETE_TRADE(state) {
+      state.trade = null;
+    },
   },
   actions: {
-    LOGOUT_USER(context) {//Limpia array de datos del user
-      context.commit('LOGOUT_USER')
+    LOGOUT_USER(context) {
+      //Limpia array de datos del user
+      context.commit("LOGOUT_USER");
     },
     async getTrades({ state, commit }) {
       if (state.currentUser !== null) {
@@ -162,17 +166,38 @@ export const store = new Vuex.Store({
     //},
     createTrades(context, data) {
       return new Promise((resolve, reject) => {
-        
         Api()
-          .post("/create-trade/", 
+          .post(
+            "/create-trade/",
             {
-              "symbol": data.symbol,
-              "size": parseFloat(data.size),
-              "price": parseFloat(data.price),
-              "datetime": data.datetime,
-              "iduser": this.state.currentUser.id,
+              symbol: data.symbol,
+              size: parseFloat(data.size),
+              price: parseFloat(data.price),
+              datetime: data.datetime,
+              iduser: this.state.currentUser.id,
             },
-          authHeaders(this.state.token))
+            authHeaders(this.state.token)
+          )
+          .then((response) => {
+            console.log(response);
+            resolve(response);
+          })
+          .catch((error) => {
+            console.log(error.response);
+            reject(error);
+          });
+      });
+    },
+    deleteTrade(id) {
+      return new Promise((resolve, reject) => {
+        Api()
+          .post(
+            "/delete-trade/",
+            {
+              trade_id: id,
+            },
+            authHeaders(this.state.token)
+          )
           .then((response) => {
             console.log(response);
             resolve(response);

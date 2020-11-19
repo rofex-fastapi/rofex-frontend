@@ -28,7 +28,7 @@
       </li>
       <li>
         <v-icon class="pt-5 mt-5 icon">mdi-finance</v-icon>
-        <router-link to="/graphs">Grafica de cada trade</router-link>
+        <router-link to="/graphs">Grafica sus trades</router-link>
       </li>
       <li>
         <v-icon class="pt-5 mt-5 icon">mdi-plus</v-icon>
@@ -70,5 +70,4 @@ export default Vue.extend({
 .icon {
   color: #aaa !important;
 }
-
 </style>
