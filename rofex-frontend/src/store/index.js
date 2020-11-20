@@ -51,6 +51,22 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
+    async gettradehistory({ state, data }) {
+      try {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+        return data = await Api().post(
+          `/trade_history/?trade_symbol=${data.symbol}&trade_date=${data.symbol}`
+        );        
+        
+      } catch (error) {
+        return {
+          error: "Error al traer trades",
+        };
+      }
+    },
     LOGOUT_USER(context) {
       //Limpia array de datos del user
       context.commit("LOGOUT_USER");

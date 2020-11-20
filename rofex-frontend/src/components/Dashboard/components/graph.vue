@@ -33,6 +33,7 @@
 <script>
 import LineChart from "./Vuechart";
 
+import moment from "moment";
 export default {
   components: {
     LineChart
@@ -80,7 +81,12 @@ export default {
   methods: {
     getTrades: function() {
       return this.$store.getters.getTrades;
-    },}
+    },
+    getTradeHistory(sym,dat){
+      const da=moment(dat).format("YYYY-MMM-DD")
+      this.$store.dispatch('gettradehistory',{symbol:sym,date:da} )
+    }
+    }
 };
 </script>
 

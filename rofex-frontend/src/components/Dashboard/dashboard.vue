@@ -23,23 +23,20 @@
       <Sidebar v-bind:user="user" />
       <section id="contents">
         <DashboardNav />
-        <!-- <div class="welcome">
+         <div class="welcome">
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-12">
+              <div class="chartdash">                
                 <div class="content">
-                  <h2>Bienvenido</h2>
-                  <p>En esta pagina vas a encontrar...</p>
+                  <h2>Trade elimnado Correctamente</h2>                  
+                  <router-link to="/table">Volver</router-link>
+                </div>
                 </div>
               </div>
             </div>
           </div>
-        </div> -->
-        <Tables />
-        <!-- podriamos agregar los ultimos trades hechos en la parte de tables-->
-        <Graph />
-        <Graph />
-        <Graph />
+        </div>        
       </section>
     </body>
   </html>
@@ -50,15 +47,11 @@ import Vue from "vue";
 import Sidebar from "./components/sidebar";
 import DashboardNav from "./components/dashboardNav";
 
-import Tables from "./components/table";
-import Graph from "./components/graph";
 export default Vue.extend({
   name: "Dashboard",
   components: {
     DashboardNav,
     Sidebar,
-    Graph,
-    Tables,
   },
   data() {
     return {};
@@ -72,6 +65,11 @@ export default Vue.extend({
 </script>
 
 <style>
+
+.chartdash {
+  min-height: 895px;
+  
+}
 * {
   padding: 0;
   margin: 0;

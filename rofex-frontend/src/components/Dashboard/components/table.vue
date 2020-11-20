@@ -12,12 +12,13 @@
               <div id="app" class="container" v-if="trades.length == 0">
                 <h2>No hay Trades Cargados</h2>
               </div>
+              
               <div
                 id="app"
                 class="container col-md-12"
                 v-if="trades.length !== 0"
               >
-                <table border="1">
+                <table border="1" >
                   <thead>
                     <th>Dolar Futuro</th>
                     <th>Cantidad Comprada</th>
@@ -55,6 +56,7 @@ export default Vue.extend({
   data() {
     return {
       trades: [],
+      componentKey:0,
     };
   },
   mounted() {
@@ -69,10 +71,12 @@ export default Vue.extend({
     },
     deleteT(idtrade) {
         this.$store.dispatch('deleteTrade', idtrade)
+        .then(this.$router.push({ name: "Dashboard" }))
            
     }
-    //...mapActions(["deleteTrade"]),
   },
+    //...mapActions(["deleteTrade"]),
+  
 });
 </script>
 <style scoped>
