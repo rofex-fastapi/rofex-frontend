@@ -17,6 +17,11 @@ export const store = new Vuex.Store({
     token: localStorage.getItem("access_token") || null,
     currentUser: null,
     trades: null,
+    tradesHistoryDONov20: null,
+    tradesHistoryDODic20: null,
+    tradesHistoryDOEne21: null,
+    tradesHistoryDOFeb21: null,
+    user:null
   },
   getters: {
     isLoggedIn(state) {
@@ -28,6 +33,18 @@ export const store = new Vuex.Store({
     getTrades(state) {
       return state.trades;
     },
+    getTradesHistoryDONov20(state) {
+      return state.tradesHistoryDONov20.trades;
+    },
+    getTradesHistoryDODic20(state) {
+      return state.tradesHistoryDODic20.trades;
+    },
+    getTradesHistoryDOEne21(state) {
+      return state.tradesHistoryDOEne21.trades;
+    },
+    getTradesHistoryDOFeb21(state) {
+      return state.tradesHistoryDOFeb21.trades;
+    },
   },
   mutations: {
     SET_CURRENT_USER(state, user) {
@@ -35,7 +52,12 @@ export const store = new Vuex.Store({
     },
     LOGOUT_USER(state) {
       state.currentUser = {};
-      state.trades = [];
+      state.trades = null;
+      
+      state.tradesHistoryDONov20= null;
+      state.tradesHistoryDODic20= null;
+      state.tradesHistoryDOEne21= null;
+      state.tradesHistoryDOFeb21= null;
     },
     RETURN_TOKEN(state, token) {
       state.token = token;
@@ -46,20 +68,88 @@ export const store = new Vuex.Store({
     SET_TRADES(state, trades) {
       state.trades = trades;
     },
+    SET_TRADESHisDONov20(state, trades) {
+      state.tradesHistoryDONov20 = trades;
+    },
+    SET_TRADESHisDODic20(state, trades) {
+      state.tradesHistoryDODic20 = trades;
+    },
+    SET_TRADESHisDOEne21(state, trades) {
+      state.tradesHistoryDOEne21 = trades;
+    },
+    SET_TRADESHisDOFeb21(state, trades) {
+      state.tradesHistoryDOFeb21 = trades;
+    },
     DELETE_TRADE(state) {
       state.trade = null;
     },
   },
   actions: {
-    async gettradehistory({ state, data }) {
+    async gettradehistoryDONov20( { state, commit }) {
       try {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${state.token}`;
         axios.defaults.headers.post["Content-Type"] = "application/json";
-        return data = await Api().post(
-          `/trade_history/?trade_symbol=${data.symbol}&trade_date=${data.symbol}`
-        );        
+        const data = await Api().post(          `/trade_history/?trade_symbol=DONov20&trade_date=2020-05-01`      );
+        if (data !== null) {
+          commit( 'SET_TRADESHisDONov20', data.data);
+        }
+        return data;      
+        
+      } catch (error) {
+        return {
+          error: "Error al traer trades",
+        };
+      }
+    },
+    async gettradehistoryDODic20( { state, commit }) {
+      try {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+        const data = await Api().post(          `/trade_history/?trade_symbol=DODic20&trade_date=2020-05-01`      );
+        if (data !== null) {
+          commit( 'SET_TRADESHisDODic20', data.data);
+        }
+        return data;      
+        
+      } catch (error) {
+        return {
+          error: "Error al traer trades",
+        };
+      }
+    },
+    async gettradehistoryDOEne21( { state, commit }) {
+      try {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+        const data = await Api().post(          `/trade_history/?trade_symbol=DOEne21&trade_date=2020-05-01`      );
+        if (data !== null) {
+          commit( 'SET_TRADESHisDOEne21', data.data);
+        }
+        return data;      
+        
+      } catch (error) {
+        return {
+          error: "Error al traer trades",
+        };
+      }
+    },
+    async gettradehistoryDOFeb21( { state, commit }) {
+      try {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
+        const data = await Api().post(          `/trade_history/?trade_symbol=DOFeb21&trade_date=2020-05-01`      );
+        if (data !== null) {
+          commit( 'SET_TRADESHisDOFeb21', data.data);
+        }
+        return data;      
         
       } catch (error) {
         return {

@@ -54,6 +54,10 @@ export default Vue.extend({
   mounted() {
     this.$store.dispatch("getMe").then(() => {
       this.$store.dispatch("getTrades");
+     /* this.$store.dispatch('gettradehistory','DOEne21' );
+      this.$store.dispatch('gettradehistory','DOFeb21' );
+      this.$store.dispatch('gettradehistory','DOMar21' );
+      this.$store.dispatch('gettradehistory','DOAbr21' );*/
     });
   },
 });

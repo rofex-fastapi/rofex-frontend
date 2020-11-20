@@ -65,11 +65,17 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getMe").then(() => {
-      this.$store.dispatch("getTrades");
+      this.$store.dispatch("getTrades");      
+      this.$store.dispatch('gettradehistoryDONov20' );
+      this.$store.dispatch('gettradehistoryDODic20');      
+      this.$store.dispatch('gettradehistoryDOEne21' );
+      this.$store.dispatch('gettradehistoryDOFeb21');
     });
+    
   },
 
   components: {},
+  
   data: () => ({
     items: [
       {
