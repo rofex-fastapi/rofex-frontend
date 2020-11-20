@@ -116,8 +116,7 @@ export default {
                     xAxes: [{
                             type: "time",
                             time: {
-                                unit: 'day',
-                                round: 'day',
+                                unit: 'month'
                             },
                         }],
                     yAxes: [{
