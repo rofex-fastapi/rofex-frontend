@@ -68,7 +68,7 @@ export default Vue.extend({
       this.trades = this.$store.getters.getTrades;
     },
     deleteT(idtrade) {
-        this.$store.dispatch('deleteTrade', {idtable:idtrade})
+        this.$store.dispatch('deleteTrade', idtrade)
            
     }
     //...mapActions(["deleteTrade"]),

@@ -190,12 +190,13 @@ export const store = new Vuex.Store({
     },
     deleteTrade(context,id) {
       return new Promise((resolve, reject) => {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${this.state.token}`;
+        axios.defaults.headers.post["Content-Type"] = "application/json";
         Api()
           .post(
-            "/delete-trade/", {
-              trade_id:id.idtable,
-            },
-            authHeaders(this.state.token)
+            `/delete-trade/?trade_id=${id}`
           )
           .then((response) => {
             console.log(response);
