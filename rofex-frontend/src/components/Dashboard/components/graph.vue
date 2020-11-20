@@ -111,7 +111,7 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        gridLines:true
+        gridLines:true,animation: false
         ,scales: {
                     xAxes: [{
                             type: "time",
