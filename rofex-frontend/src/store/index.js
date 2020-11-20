@@ -188,13 +188,12 @@ export const store = new Vuex.Store({
           });
       });
     },
-    deleteTrade(id) {
+    deleteTrade(context,id) {
       return new Promise((resolve, reject) => {
         Api()
           .post(
-            "/delete-trade/",
-            {
-              trade_id: id,
+            "/delete-trade/", {
+              trade_id:id.idtable,
             },
             authHeaders(this.state.token)
           )

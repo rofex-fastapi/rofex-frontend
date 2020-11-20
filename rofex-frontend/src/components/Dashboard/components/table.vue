@@ -31,7 +31,7 @@
                     <td>{{ trade.price }}</td>
                     <td>{{ trade.datetime }}</td>
                     <td>
-                      <button class="red" @click="deleteTrade(trade.idtrade)">
+                      <button class="red" @click="deleteT(trade.idtrade)">
                         <v-icon id="iconDelete">mdi-delete</v-icon>
                       </button>
                     </td>
@@ -48,7 +48,7 @@
 <script>
 import Vue from "vue";
 import moment from "moment";
-import { mapActions } from "vuex";
+//import { mapActions } from "vuex";
 
 export default Vue.extend({
   name: "Tables",
@@ -67,7 +67,11 @@ export default Vue.extend({
     getTrades: function() {
       this.trades = this.$store.getters.getTrades;
     },
-    ...mapActions(["deleteTrade"]),
+    deleteT(idtrade) {
+        this.$store.dispatch('deleteTrade', {idtable:idtrade})
+           
+    }
+    //...mapActions(["deleteTrade"]),
   },
 });
 </script>
